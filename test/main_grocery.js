@@ -1,7 +1,5 @@
 import React from 'react';
 import {render} from 'react-dom';
-import Greeter from './Greeter';
-import Hello from './Hello';
 
 
 console.log(React)
@@ -39,6 +37,4 @@ class ListItem extends React.Component {
 
 render(<GroceryList/>, document.querySelector("#root"));
 
-/*
-render(<Greeter />, document.getElementById('root'));
-render(<Hello />, document.getElementById('root2'));*/
+console.warn('reder finished!!');
