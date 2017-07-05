@@ -5,7 +5,8 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-	devtool :'eval-source-map', //디버깅 하도록 소스맵 설정
+	devtool :'eval-source-map', //개발작업시 사용 디버깅 하도록 소스맵 설정
+	//devtool :'source-map', //실무빌드시 사용 소스맵을 버려서 용량 대폭줄임
 	devServer : {   //자동으로 브라우저 새로고침해줌
 		contentBase: __dirname + '/public', //기본적으로 루트파일을 서비스하지만 다른폴더 설정시 사용
 		port : 7788,  // 포트설정
@@ -56,12 +57,25 @@ module.exports = {
 		new webpack.LoaderOptionsPlugin({ //로더들에게 옵션을 넣어줌
 			minimize: true,
 		}),
-		new webpack.optimize.UglifyJsPlugin({  // JS압축 난독화
-			sourceMap: true,
+		new webpack.DefinePlugin({
+			'process.env': {
+				'NODE_ENV': JSON.stringify('production')
+			}
+		}),
+		new webpack.optimize.UglifyJsPlugin({ //js압축 난독화
+			sourceMap : true,
+			comments: false, // remove comments
 			compress: {
-				warnings: true, // 콘솔창에 출력되는것들을 지워줌.
-				unused : true //
-			},
+				unused: true,
+				dead_code: true, // big one--strip code that will never execute
+				warnings: false, // good for prod apps so users can't peek behind curtain
+				drop_debugger: true,
+				conditionals: true,
+				evaluate: true,
+				drop_console: true, // strips console statements
+				sequences: true,
+				booleans: true,
+			}
 		}),
 		new ExtractTextPlugin({
 			filename:'app.css'
