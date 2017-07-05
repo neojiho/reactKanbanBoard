@@ -63,7 +63,7 @@ module.exports = {
 			}
 		}),
 		new webpack.optimize.UglifyJsPlugin({ //js압축 난독화
-			sourceMap : true,
+			//sourceMap : true, //soruceMap 생성
 			comments: false, // remove comments
 			compress: {
 				unused: true,
