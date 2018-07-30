@@ -1,19 +1,25 @@
+/*
+* entry point of react application
+* */
+
 import React from 'react';
 import {render} from 'react-dom';
-import KanbanBoard from './KanbanBoard';
+import KanbanBoard from './component/KanbanBoard';
+import TestComponent from './test_component/test_component';
 
 let cardsList = [
 	{
 		id : 1,
 		title : 'Read the Book',
-		description : "I shoud read the whole book",
+		description : "I shoud read the **whole** book",
 		status : "in-progress",
 		tasks : []
 	},
 	{
 		id: 2,
 		title : "write some code",
-		description : "Code along with the samples in the book",
+		description : "Code along with the samples in the book. The complete source can be found at" +
+		" [github](https://github.com/pro-react)",
 		status : "todo",
 		tasks : [
 			{
@@ -35,4 +41,8 @@ let cardsList = [
 	}
 ];
 
+
+
 render(<KanbanBoard cards={cardsList} />, document.getElementById('root'));
+render(<TestComponent />, document.getElementById('testRoot'));
+
