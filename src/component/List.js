@@ -23,7 +23,6 @@ class List extends Component {
 	}
 }
 
-console.log(PropTypes);
 List.propTypes = {
 	title : PropTypes.string.isRequired,
 	cards : PropTypes.arrayOf(PropTypes.object)

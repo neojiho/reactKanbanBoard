@@ -52,9 +52,21 @@ class Card extends Component {
 
 }
 
+//custom title props validation
+let titlePropType = (props, propName, componentName) => {
+	if (props[propName]) {
+		let value = props[propName];
+		if (typeof value !== 'string' || value.length > 80) {
+			return new Error(
+				'${porpName} in ${componentName} is longer than 80 chracters'
+			)
+		}
+	}
+};
+
 Card.propTypes = {
 	id : PropTypes.number,
-	title : PropTypes.string,
+	title : titlePropType, //PropTypes.string,
 	description : PropTypes.string,
 	color : PropTypes.string,
 	tasks : PropTypes.arrayOf(PropTypes.object)
