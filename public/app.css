@@ -28,4 +28,14 @@ ul {list-style-type:none; margin:0; padding:0;}
 
 .checklist_task--remove:after {display:inline-block; color:#d66; content:"+"}
 
+.checklist--add-task {
+	border: 1px dashed #bbb;
+	width : 100%;
+	padding: 10px;
+	margin-top:5px;
+	border-radius: 3px;
+}
+
+#testRoot {border:1px solid #ccc; margin:10px;padding:5px;}
+
 

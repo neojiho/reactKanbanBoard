@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import CheckList from './CheckList';
 import marked from 'marked'; //마크다운 일반텍스트 형식을 이용해 글을 쓰는 형식이다 예를들어 **로 텍스트를 감싸면 굵게 표시된다.
 
@@ -18,6 +19,16 @@ class Card extends Component {
 
 	render(){
 		let cardDetails;
+		const sideColor = {
+			position : 'absolute',
+			zIndex : -1,
+			top : 0,
+			bottom : 0,
+			left : 0,
+			width : 7,
+			backgroundColor : this.props.color
+		};//inline color define
+
 		if (this.state.showDetails) {
 			cardDetails = (
 				<div className="card_details">
@@ -26,8 +37,11 @@ class Card extends Component {
 				</div>
 			)
 		}
+
+
 		return (
 			<div className="card">
+				<div style={sideColor}/>
 				<div className={this.state.showDetails? 'card_title card_title--is-open' : 'card_title'} onClick={this.toggleDetails}>
 					{this.props.title}
 				</div>
@@ -37,5 +51,13 @@ class Card extends Component {
 	}
 
 }
+
+Card.propTypes = {
+	id : PropTypes.number,
+	title : PropTypes.string,
+	description : PropTypes.string,
+	color : PropTypes.string,
+	tasks : PropTypes.arrayOf(PropTypes.object)
+};
 
 export default Card;

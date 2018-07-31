@@ -15,9 +15,35 @@ JSX
 - 내부에 innerHtml을 사용할경우에는 dangerouslySetInnerHTML={{__html: }}를 사용해서 동적 html을 렌더링한다.
 
 
+ref
+- react는 항상 가상 DOM으로 작업을 하고 실제 DOM조작을 하지 않는다. 하지만 실제 DOM에 접근하여 다른 라이브러리같은것들을 사용해야할 때가 있는대 이런경우 ref를 씀.
+- <input ref='myInput' /> 이라고 설정될때 let input = this.ref.myInput, inputValue = input.value 같이 원시 DOM에 접근이 가능하다
+
+Inline Style
+- 자동으로 적절한 단위를 지정하므로 픽셀을 정해줄 필요가없다.
+
+Form
+- react로 form요소를 만들때 value값을 직접 하드코딩하면 값을 변경할 수 없다.
+-예를들어 input의 값을 value에 넣으면 하드코딩되어 값을 변경할 수 없다. 이는 this.state.inputVal 과같이 state에서
+값을 가져오도록 하고,onChange에
+handleChange(event){this.setState({inputVal : event.target.value})} 와 같이 핸들러를 붙여주어야한다. 그럼 값이 변경되면 state가 변경되어 value값이
+바인딩되어 제대로 노출되게된다.
+- 상태가 인터페이스 밖의 자바스크립트 코드에서 완전히 관리된다. 유효성 검사시 유리
+- textarea 도 input과 같다.
+- select 의경우 속성 value값에 자식 option의 value값을 설정하여 select의 value에 어느option값이 선택되는지 전달한다.
+
 Component
 
 - 각각의 component들을 반복하여 render해주는 경우 virtual DOM을 구성하는대 필요한 특정 id가 필요해진다 이 경우 component에 key라는 property를 설정해주어야 한다.
+- key는 트리간에 항목 삽입, 삭제, 대체, 이동이 발생했는지 파악하기 위해 빠른 조회를 가능하도록 하는 고유 식별자. key가 지정되어야 성능 병목 현상을 예방할 수 있다.
+
+
+functional Component
+
+- this.state
+- ref 메서드
+- component에 lifeCycle
+위 세가지가 들어가는 순간 순수한 함수형 component에서 벗어난다.
 
 
 setState
@@ -43,16 +69,8 @@ eventHandling
 - virtual DOM을 real DOM처럼 핸들링하는건 리엑트의 방법이 아님. 필요하다면 ref라는 참조값을 설정해서 사용하라 최대한 DOM참조 없이 작업을 하는것이 퍼포먼스에 좋다.
 
 
-functional Component
-
-- this.state
-- ref 메서드
-- component에 lifeCycle
-위 세가지가 들어가는 순간 순수한 함수형 component에서 벗어난다.
-
-
 PropTypes
 
 - PropTypes는 function형 이든 class 형태이든 상관없이 모두 쓸 수있다.
 - 처음부터 data type을 모두정하려고 하지 말고, 프로젝트 완료가 되었을때 좀더 강타입스럽게 dependency를 갖을때 해도 무방하다.
-
+- 가장 많이 쓰이는 맵형태 [{},{},{}]의 경우 PropTypes.arrayOf(PropTypes.object)
