@@ -1,7 +1,4 @@
 
-study 진행 github link
-https://github.com/apple77y/todo_react/tree/master
-
 JSX
 
 - 태그의 attribute는 camel로 표기함.
