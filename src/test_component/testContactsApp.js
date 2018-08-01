@@ -2,14 +2,41 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {render} from 'react-dom';
 
-const contacts = [
-	{name : "Cassio Zen", email : "cassiozen@gmail.com"},
-	{name : "Dan Abramov", email : "gaeron@gmail.com"},
-	{name : "Pete Hunt", email : "floydophone@gmail.com"},
-	{name : "Paul O'Shannessy", email : "zpao@gmail.com"},
-	{name : "Ryan Florence", email : "rpflorence@gmail.com"},
-	{name : "Sebastian Markbage", email : "sebmarkbage@gmail.com"},
-];
+class ContactsAppContainer extends Component {
+	constructor() {
+		super();
+		this.state = {
+			contacts: []
+		}
+	}
+
+	componentDidMount() {
+		fetch('../data/contacts.json') //절대주소.
+			.then((response) => {
+				console.dir(response); //fetch는 data를 직접 보내지않고 response객체를 보냄
+				const responseData = response.json(); //responseData.json()이 데이터를 json변경
+				console.log(responseData);
+				return responseData
+			})
+			.then((responseData) => {
+				this.setState({contacts: responseData}, () => {
+					console.log(this.state);
+				})
+			})
+			.catch((error) => {
+				console.log('error', error)
+			})
+	}
+
+	render() {
+		return (
+			<div>
+				<h3>contact list example</h3>
+				<ContactsApp contacts={this.state.contacts} />
+			</div>
+		)
+	}
+}
 
 class ContactsApp extends Component {
 	constructor(){
@@ -22,8 +49,7 @@ class ContactsApp extends Component {
 	}
 
 	onChangeHandle(searchText){
-		this.setState({filterText : searchText}, ()=>{console.log("setState callBack", this.state)});
-		console.log("after setState",this.state)
+		this.setState({filterText: searchText});
 	}
 
 	render() {
@@ -82,7 +108,6 @@ class ContactList extends Component {
 	}
 }
 
-
 ContactList.propTypes = {
 	contact: PropTypes.arrayOf(PropTypes.object)
 };
@@ -94,6 +119,6 @@ const ContactItem = ({name, email}) => {
 	)
 };
 
-render(<ContactsApp contacts = {contacts} />, document.getElementById('contactsApp'));
-// export default ContactsApp;
+
+export default ContactsAppContainer;
 

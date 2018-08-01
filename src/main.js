@@ -5,7 +5,7 @@
 import React from 'react';
 import {render} from 'react-dom';
 import KanbanBoard from './component/KanbanBoard';
-import TestComponents from './test_component/testIndex';
+import TestContainer from './test_component/testContainer';
 
 let cardsList = [
 	{
@@ -46,5 +46,5 @@ let cardsList = [
 
 
 render(<KanbanBoard cards={cardsList} />, document.getElementById('root'));
-render(<TestComponents />, document.getElementById('testRoot'));
+render(<TestContainer />, document.getElementById('testRoot'));
 

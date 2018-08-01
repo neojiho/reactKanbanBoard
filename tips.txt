@@ -71,3 +71,8 @@ PropTypes
 - PropTypes는 function형 이든 class 형태이든 상관없이 모두 쓸 수있다.
 - 처음부터 data type을 모두정하려고 하지 말고, 프로젝트 완료가 되었을때 좀더 강타입스럽게 dependency를 갖을때 해도 무방하다.
 - 가장 많이 쓰이는 맵형태 [{},{},{}]의 경우 PropTypes.arrayOf(PropTypes.object)
+
+fetch
+
+- fetch의 첫번째 .then((response)=>{return response.json()})에서는 response 프로미스 객체가 리턴된다, .json()을 통해 다시 프로미스를 리턴하고, 그걸 받아 두번째
+ .then((data)=>{console.log(data)}) 에서 첫번째 then에서 처리한 응답데이터를 받아 로직을 처리한다.
