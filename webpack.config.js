@@ -15,7 +15,8 @@ module.exports = {
 		hot: true //페이지가 변경시 새로고침 핫리로딩
 	},
 	entry : { //웹팩이 파일을 읽어들이기 엔트리 파일설정
-		app: [__dirname + '/src/main.js' /*, __dirname + '/app/main2.js'*/]
+		app: [__dirname + '/src/main.js', __dirname + '/src/contactsApp/ContactsApp.js' /*, __dirname +
+		 '/app/main2.js'*/]
 		// entry가 여러파일일경우 app: ['main.js','main2.js']
 	},
 	output : {

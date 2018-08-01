@@ -17,13 +17,20 @@ class ContactsApp extends Component {
 		this.state={
 			filterText : ''
 		};
+
+		this.onChangeHandle = this.onChangeHandle.bind(this)
+	}
+
+	onChangeHandle(searchText){
+		this.setState({filterText : searchText}, ()=>{console.log("setState callBack", this.state)});
+		console.log("after setState",this.state)
 	}
 
 	render() {
 		return (
 			<div>
 				{"ContactsApp"}
-				<SearchBar filterText = {this.state.filterText} />
+				<SearchBar filterText = {this.state.filterText} handleChange={this.onChangeHandle}/>
 				<ContactList contacts={this.props.contacts}
 							filterText = {this.state.filterText} />
 			</div>
@@ -36,8 +43,13 @@ ContactsApp.propTypes = {
 };
 
 class SearchBar extends Component {
+
+	handleChange(){
+		this.props.handleChange(event.target.value)
+	}
+
 	render() {
-		return <input type="search" placeholder={"search"} />
+		return <input type="search" placeholder={"search"} onChange={this.handleChange.bind(this)}/>
 	}
 }
 
@@ -48,15 +60,22 @@ SearchBar.propTypes = {
 class ContactList extends Component {
 	render() {
 		const filteredContacts = this.props.contacts.filter(
-			(contact) => contact.name.indexOf(this.props.filterText) !== -1
+			//filter는 인자로 받은 함수를 돌려 새로운 배열을 리턴한다.
+			(contact) => contact.name.indexOf(this.props.filterText) !== -1 //filterText의 순서가 -1이 아닌 즉 연속된 문자열을
+			// 포함하는것들만 새로운 배열로 리턴한다.
 		);
 
 		const filteredContactsList = filteredContacts.map((contact) => {
 			return <ContactItem key={contact.email} name={contact.name} email={contact.email} />
 		});
 
+		const contactLists = this.props.contacts.map((contact)=>{
+			return <ContactItem key={contact.email} name={contact.name} email={contact.email} />
+		});
+
 		return (
 			<ul>
+				{/*{contactLists}*/}
 				{filteredContactsList}
 			</ul>
 		)
