@@ -66,7 +66,9 @@ life cycle
 eventHandling
 
 - virtual DOM을 real DOM처럼 핸들링하는건 리엑트의 방법이 아님. 필요하다면 ref라는 참조값을 설정해서 사용하라 최대한 DOM참조 없이 작업을 하는것이 퍼포먼스에 좋다.
-
+- 특정 이벤트가 발생하였을때 넘겨지는 event객체는 기존 DOM의 event객체와는 다르다, 리엑트 자체적으로 syntheticEvent라는걸 넘기는대 이녀석이 퍼포먼스상 모든 property를 null처리한다.
+ 만약 끝까지 이벤트객체를 보고싶을경우 event.persist()를 실행한후 찍어볼것!
+- event.keyCode로 살펴보면 제대로 나오지 않는다. event.key 또는 event.which로 추가 작업을 할것
 
 PropTypes
 

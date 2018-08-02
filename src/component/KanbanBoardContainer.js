@@ -48,7 +48,7 @@ class KanbanBoardContainer extends Component {
 	render() {
 		return (
 			<KanbanBoard cards={this.state.cards}
-			             taskCallbacks={{
+			             taskCallbacks={{//event 관련된 함수를 넘길때는 객체로 감싸넘기는것도 좋다.
 				             toggle: this.toggleTask.bind(this),
 				             delete: this.deleteTask.bind(this),
 				             add: this.addTask.bind(this)
