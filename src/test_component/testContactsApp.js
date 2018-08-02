@@ -13,14 +13,14 @@ class ContactsAppContainer extends Component {
 	componentDidMount() {
 		fetch('../data/contacts.json') //절대주소.
 			.then((response) => {
-				console.dir(response); //fetch는 data를 직접 보내지않고 response객체를 보냄
+				// console.dir(response); //fetch는 data를 직접 보내지않고 response객체를 보냄
 				const responseData = response.json(); //responseData.json()이 데이터를 json변경
-				console.log(responseData);
+				// console.log(responseData);
 				return responseData
 			})
 			.then((responseData) => {
 				this.setState({contacts: responseData}, () => {
-					console.log(this.state);
+					// console.log(this.state);
 				})
 			})
 			.catch((error) => {

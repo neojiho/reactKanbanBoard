@@ -52,6 +52,8 @@ setState
 - this.setState(function(prevState){ //여기서 첫번째 인자 prevState가 이전 state 값임. })
 - setState는 실행 즉시 동작하는게 아니고 해당 콜스택이 모두 끝난 후에 실행된다. this.setState({todo:false})
 console.log(this.state.todo) // 이전 값이 나옴.
+- this.state를 직접 조작하는것은 금물!! 항상 setState를 통하여 상태관리를 해야한다. 또한 직접 push해버리면 객체나 배열은 참조해서 작업을 하므로 이 경우 setState내부에서 작업하는게 아니라면 항상
+ this.state를 map, filter, concat과 같은 메서드를 사용하여 새로운 배열을 리턴한후 setState해야한다.
 
 
 life cycle
@@ -74,5 +76,8 @@ PropTypes
 
 fetch
 
+- fetch()를 불러들이는 경우, 취득할 리소스를 반드시 인수로 지정하지 않으면 안됩니다. 읽어들인 뒤,  fetch()는 Promise객체를 반환합니다. 리퀘스트가 성공하든 실패하든 해당 리퀘스트 통신에 대한
+Response객체가 취득됩니다. fetch()의 두번째 인수는 초기화에 사용되는 객체를 정의하고 있습니다. 이 인수는 기입하지 않아도 함수의 동작에 문제가 없습니다. 이 인수에 대한 상세한 정보는 Request)를
+ 참고해주시기 바랍니다. 라고 공식문서에 써있슴.
 - fetch의 첫번째 .then((response)=>{return response.json()})에서는 response 프로미스 객체가 리턴된다, .json()을 통해 다시 프로미스를 리턴하고, 그걸 받아 두번째
  .then((data)=>{console.log(data)}) 에서 첫번째 then에서 처리한 응답데이터를 받아 로직을 처리한다.
