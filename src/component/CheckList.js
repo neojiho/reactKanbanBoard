@@ -22,6 +22,7 @@ class CheckList extends Component {
 			<li key={task.id} className="checklist_task">
 				<input type="checkbox" defaultChecked={task.done}
 				       onChange={this.props.taskCallbacks.toggle.bind(null, this.props.cardId, task.id, taskIndex)}
+					//bind로 this를 넘겨주지 않는 이유는 이벤트를 실행하는 메서드의  this가 kanbanBoardContainer이기 때문에 그러한듯
 				/>
 				{task.name}{' '}
 				<a href="#" className="checklist_task--remove"

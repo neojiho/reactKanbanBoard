@@ -34,14 +34,101 @@ class KanbanBoardContainer extends Component {
 	}
 
 	addTask(cardId, taskName) {
+		console.log('addTask', arguments);
+		//카드 인덱스 찾기
+		let cardIndex = this.state.cards.findIndex((card) => card.id === cardId);
+
+		//card ID를 기반으로 지정된 이름과 임의의 ID로 새로운 태스크를 생성함.
+		let tasks = this.state.cards[cardIndex]['tasks'],
+			taskLength = tasks.length,
+			lastId = tasks[taskLength - 1]["id"];
+
+		const newTask = {
+			id: (lastId + 1),
+			name: taskName,
+			done: false
+		};
+
+		//태스크 추가
+		const extendsTask = [...tasks, ...[newTask]];
+
+		//상태변경
+		this.setState((prevState) => {
+			prevState.cards[cardIndex].tasks = extendsTask;
+			return prevState;
+		});
+
+		//API호출
+		fetch(`${API_URL}/cards/${cardId}/tasks`, {
+			method: 'post',
+			headers: API_HEADER,
+			body: JSON.stringify(newTask) //new task를 보내본다. extendsTask를 보내면 안된다.
+		})
+			.then((response) => {
+				return response.json()
+			})
+			.then((data) => {
+				//이짓을 하는 이유는 서버에서 ID가 유효한지 확정여부를 알아야 하기때문.
+				newTask.id = data.id;
+				console.log(data);
+				this.setState((prevState) => {
+					prevState.cards[cardIndex].tasks = extendsTask;
+					return prevState;
+				});
+			})
 
 	}
 
 	deleteTask(cardId, taskId, taskIndex) {
 
+		console.log('deleteTask', arguments);
+
+		//card의 id를 바탕으로  index를 찾음.
+		let cardIndex = this.state.cards.findIndex((card) => (card.id === cardId));
+
+		// let nextState = update(this.state.cards, {
+		// 	[cardIndex] : {
+		// 		task : {$splice : [[taskIndex, 1]]}
+		// 	}
+		// });
+
+		//이전객체를 받아 직접수정 불변객체로 수정하지 않음.
+		this.setState((prevState) => {
+			return prevState["cards"][cardIndex]["tasks"].splice(taskIndex, 1);
+			//splice는 값을 새로생성하여 리턴하므로 가능한듯
+		});
+
+		//API호출하여 해당 태스크를 제거함.
+		fetch(`${API_URL}/cards/${cardId}/tasks/${taskId}`, {
+			method: 'delete',
+			headers: API_HEADER
+		})
+
 	}
 
 	toggleTask(cardId, taskId, taskIndex) {
+		console.log('toggleTask', arguments, this);
+		//카드 인덱스 찾기
+		let cardIndex = this.state.cards.findIndex((card) => card.id == cardId);
+		let completeDoneValue;
+
+		//상태변경
+		this.setState((prevState) => {
+
+			let doneValue = prevState["cards"][cardIndex]["tasks"][taskIndex]["done"];
+
+			doneValue = !doneValue;
+			completeDoneValue = doneValue;
+			return prevState
+		}, () => {
+			//setState이 모두 완료된 이후시점에 API로 서버에 전달
+			fetch(`${API_URL}/cards/${cardId}/tasks/${taskId}`, {
+				method: 'put',
+				headers: API_HEADER,
+				body: JSON.stringify({done: completeDoneValue})
+			});
+		});
+
 
 	}
 
