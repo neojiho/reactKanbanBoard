@@ -43,14 +43,20 @@ class KanbanBoardContainer extends Component {
 			taskLength = tasks.length,
 			lastId = tasks[taskLength - 1]["id"];
 
+		//새로운 태스트
 		const newTask = {
 			id: (lastId + 1),
 			name: taskName,
 			done: false
 		};
 
-		//태스크 추가
+		//기존 태스크와 합침
 		const extendsTask = [...tasks, ...[newTask]];
+
+		//기존 state의 복사본을 백업해놓음.
+		const backupState = JSON.parse(JSON.stringify(this.state));
+
+		console.log(backupState);
 
 		//상태변경
 		this.setState((prevState) => {
@@ -65,6 +71,10 @@ class KanbanBoardContainer extends Component {
 			body: JSON.stringify(newTask) //new task를 보내본다. extendsTask를 보내면 안된다.
 		})
 			.then((response) => {
+				if (!response.ok) {
+					//서버 응답이 정상이 아닌경우 에러를 던짐
+					throw new Error("Server response is not OK")
+				}
 				return response.json()
 			})
 			.then((data) => {
@@ -76,6 +86,10 @@ class KanbanBoardContainer extends Component {
 					return prevState;
 				});
 			})
+			.catch((error) => {
+				console.error("Fetch error:", error);
+				this.setState(backupState);
+			})
 
 	}
 
@@ -86,11 +100,8 @@ class KanbanBoardContainer extends Component {
 		//card의 id를 바탕으로  index를 찾음.
 		let cardIndex = this.state.cards.findIndex((card) => (card.id === cardId));
 
-		// let nextState = update(this.state.cards, {
-		// 	[cardIndex] : {
-		// 		task : {$splice : [[taskIndex, 1]]}
-		// 	}
-		// });
+		//기존 state의 복사본을 백업해놓음.
+		const backupState = JSON.parse(JSON.stringify(this.state));
 
 		//이전객체를 받아 직접수정 불변객체로 수정하지 않음.
 		this.setState((prevState) => {
@@ -103,6 +114,16 @@ class KanbanBoardContainer extends Component {
 			method: 'delete',
 			headers: API_HEADER
 		})
+			.then((response) => {
+				if (!response.ok) {
+					//서버 응답이 정상이 아닌경우 에러를 던짐
+					throw new Error("Server response is not OK")
+				}
+			})
+			.catch((error) => {
+				console.error("Fetch error:", error);
+				this.setState(backupState);
+			})
 
 	}
 
@@ -111,6 +132,10 @@ class KanbanBoardContainer extends Component {
 		//카드 인덱스 찾기
 		let cardIndex = this.state.cards.findIndex((card) => card.id == cardId);
 		let completeDoneValue;
+
+		//기존 state의 복사본을 백업해놓음.
+		const backupState = JSON.parse(JSON.stringify(this.state));
+
 
 		//상태변경
 		this.setState((prevState) => {
@@ -126,7 +151,17 @@ class KanbanBoardContainer extends Component {
 				method: 'put',
 				headers: API_HEADER,
 				body: JSON.stringify({done: completeDoneValue})
-			});
+			})
+				.then((response) => {
+					if (!response.ok) {
+						//서버 응답이 정상이 아닌경우 에러를 던짐
+						throw new Error("Server response is not OK")
+					}
+				})
+				.catch((error) => {
+					console.error("Fetch error:", error);
+					this.setState(backupState);
+				})
 		});
 
 

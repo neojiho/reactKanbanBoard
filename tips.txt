@@ -54,6 +54,7 @@ setState
 console.log(this.state.todo) // 이전 값이 나옴.
 - this.state를 직접 조작하는것은 금물!! 항상 setState를 통하여 상태관리를 해야한다. 또한 직접 push해버리면 객체나 배열은 참조해서 작업을 하므로 이 경우 setState내부에서 작업하는게 아니라면 항상
  this.state를 map, filter, concat과 같은 메서드를 사용하여 새로운 배열을 리턴한후 setState해야한다.
+- 변경된 state를 서버에 업로드해야할때, 반드시 기존의 state를 서버통신이 실패할경우 남겨놓았다가 실패시 롤백하고 메세지를 남겨놓는다.
 
 
 life cycle
