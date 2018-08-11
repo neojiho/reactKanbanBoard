@@ -25,6 +25,7 @@
     "babel-polyfill": "^6.26.0",
     "marked": "^0.4.0",
     "react": "^15.6.1",
+    "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^15.6.1",
     "whatwg-fetch": "^2.0.4"
   }

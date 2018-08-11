@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {TestForm, TestInlineStyle, Search, Textarea, Select, FocusText} from './testComponents'
 import ContactsAppContainer from './testContactsApp';
+import AnimatedShoppingList from './testAnimatedShoppingList';
 
 const TestContainer = () => {
 
@@ -13,6 +14,7 @@ const TestContainer = () => {
 			<Select />
 			<FocusText/>
 			<ContactsAppContainer />
+			<AnimatedShoppingList />
 		</div>
 	)
 };
