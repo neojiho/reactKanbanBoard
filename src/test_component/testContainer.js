@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {TestForm, TestInlineStyle, Search, Textarea, Select, FocusText} from './testComponents'
 import ContactsAppContainer from './testContactsApp';
 import AnimatedShoppingList from './testAnimatedShoppingList';
+import SnackContainer from './testSnackContainer';
 
 const TestContainer = () => {
 
@@ -16,6 +17,7 @@ const TestContainer = () => {
 			<FocusText/>
 			<ContactsAppContainer />
 			<AnimatedShoppingList />
+			<SnackContainer />
 		</div>
 	)
 };
