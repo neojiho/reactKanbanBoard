@@ -47,7 +47,15 @@ class AnimatedShoppingList extends Component {
 		return (
 			<div className='testAnimatedShoppingList'>
 				<h3>Animated shopping list</h3>
-				{shoppingItems}
+				<ReactCSSTransitionGroup
+					transitionName="example" //실제 애니메이션 정의하는 클래스이름
+					transitionEnterTimeout={300} //enter 할때 지정된 시간후 클래스제거
+					transitionLeaveTimeout={300} //leave 할때 지정된 시간후 클래스제거
+					transitionAppear={true} //초기 마운트때 동작여부
+					transitionAppearTimeout={2000}
+				>
+					{shoppingItems}
+				</ReactCSSTransitionGroup>
 				<input type='text' value={this.state.newItem}
 				       onKeyDown={this.handleChange.bind(this)}
 				/>

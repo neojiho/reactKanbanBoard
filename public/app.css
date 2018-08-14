@@ -36,6 +36,7 @@ ul {list-style-type:none; margin:0; padding:0;}
 	border-radius: 3px;
 }
 
+/*test 관련 css*/
 #testRoot {border:1px solid #ccc; margin:20px;padding:10px;}
 
 .testAnimatedShoppingList input {width:120px; padding:5px; margin-top:10px;}
@@ -48,5 +49,31 @@ ul {list-style-type:none; margin:0; padding:0;}
 	cursor:pointer;
 }
 
-
+.example-enter {
+	opacity:0;
+	transform: translateX(-250px);
+}
+.example-enter.example-enter-active {
+	opacity:1;
+	transform : translateX(0);
+	transition : all 0.3s ease;
+}
+.example-leave {
+	opacity:1;
+	transform: translateX(0);
+}
+.example-leave.example-leave-active {
+	opacity:0;
+	transform : translateX(250px);
+	transition : all 0.3s ease;
+}
+.example-appear {
+	opacity:0;
+	transform: translateX(-250px);
+}
+.example-appear.example-appear-active {
+	opacity:1;
+	transform : translateX(0);
+	transition : all 2s ease;
+}
 

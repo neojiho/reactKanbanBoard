@@ -6,7 +6,8 @@ import AnimatedShoppingList from './testAnimatedShoppingList';
 const TestContainer = () => {
 
 	return (
-		<div>this area is for a test-component
+		<div>
+			<h2>below is test-component area for many examples</h2>
 			<TestForm />
 			<TestInlineStyle />
 			<Search />
